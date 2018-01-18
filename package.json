@@ -1,0 +1,54 @@
+{
+  "name": "enumerate",
+  "version": "0.0.0",
+  "description": "Platform-agnostic enumeration",
+  "contributors": [
+    "Jeremy Nauta <jeremypnauta@gmail.com>"
+  ],
+  "repository": "enumeratejs/enumerate",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "LICENSE",
+    "lib"
+  ],
+  "bin": {
+    "enumerate": "./bin/enumerate.js"
+  },
+  "scripts": {
+    "lint": "eslint src/",
+    "transpile": "rm -rf lib && babel src --out-dir lib",
+    "prepare": "npm run transpile",
+    "pretest": "npm run lint",
+    "test": "npm run transpile && mocha --async-only",
+    "cover": "istanbul cover _mocha --report lcovonly",
+    "coveralls": "npm run cover && istanbul-coveralls"
+  },
+  "dependencies": {
+    "enumerate-log": "1.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.0",
+    "babel-preset-es2015": "6.24.1",
+    "eslint": "4.15.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.5.1",
+    "expect": "22.1.0",
+    "istanbul": "0.4.4",
+    "istanbul-coveralls": "1.0.3",
+    "mocha": "3.5.3"
+  },
+  "keywords": [
+    "enumeration",
+    "constant",
+    "project",
+    "tool",
+    "asset"
+  ]
+}
