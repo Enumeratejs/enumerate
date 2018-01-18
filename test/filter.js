@@ -20,7 +20,15 @@ describe('enumerate.filter()', function() {
   });
 
   it('filters by regex', function(done) {
-    let filtered = enumerate.filter({id1: 1, id2: 2}, [/id\d/]);
+    let filtered = enumerate.filter({id1: 1, id2: 2}, [/^id\d/]);
+
+    expect(filtered).toEqual({id1: 1, id2: 2});
+
+    done();
+  });
+
+  it('filters by regex dictionary', function(done) {
+    let filtered = enumerate.filter({id1: 1, id2: 2, similarid1: 1}, [{regex: /^id\d/}]);
 
     expect(filtered).toEqual({id1: 1, id2: 2});
 

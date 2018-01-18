@@ -15,23 +15,23 @@ import hasIn from 'lodash/hasIn';
  * @return {Object} filtered identity map
  */
 export function filter(src, queries) {
+  let $queries = queries;
   // Clean query
-  if (isNil(queries)) {
-    queries = [/.*/];
+  if (isNil($queries)) {
+    $queries = [/.*/];
   }
-  queries = map(queries, value => {
+  $queries = map($queries, (value) => {
     if (isString(value) || isRegExp(value)) {
-      value = {
-        regex: value
-      }
+      return {
+        regex: value,
+      };
     }
     return value;
   });
 
-  let dest = {};
-  forEach(Object.keys(src), key => {
-    forEach(queries, q => {
-      let regex = q.regex;
+  const dest = {};
+  forEach(Object.keys(src), (key) => {
+    forEach($queries, ({ regex }) => {
       if (isString(regex) ? key === regex : key.match(regex)) {
         dest[key] = src[key];
       }
@@ -41,15 +41,15 @@ export function filter(src, queries) {
   return dest;
 }
 
-function _merge(src, src2) {
+function $merge(src, src2) {
   forEach(src2, (identity, key) => {
-    identity = cloneDeep(identity);
+    const $identity = cloneDeep(identity);
 
     if (hasIn(src, key)) {
-      assign(src[key], identity);
-    }
-    else {
-      src[key] = cloneDeep(identity);
+      assign(src[key], $identity);
+    } else {
+      /* eslint no-param-reassign:0 */
+      src[key] = cloneDeep($identity);
     }
   });
 
@@ -64,5 +64,5 @@ function _merge(src, src2) {
  * @return {Object} merged identity map
  */
 export function merge(src, src2) {
-  return _merge(_merge({}, src), src2);
+  return $merge($merge({}, src), src2);
 }
