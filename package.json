@@ -12,23 +12,18 @@
   },
   "main": "lib/index.js",
   "files": [
-    "LICENSE",
     "lib"
   ],
-  "bin": {
-    "enumerate": "./bin/enumerate.js"
-  },
   "scripts": {
     "lint": "eslint src/",
     "transpile": "rm -rf lib && babel src --out-dir lib",
     "prepare": "npm run transpile",
-    "pretest": "npm run lint",
     "test": "npm run transpile && mocha --async-only",
     "cover": "istanbul cover _mocha --report lcovonly",
     "coveralls": "npm run cover && istanbul-coveralls"
   },
   "dependencies": {
-    "enumerate-log": "1.0.1"
+    "lodash": "~4.17.4"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
