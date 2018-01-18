@@ -11,16 +11,16 @@ import hasIn from 'lodash/hasIn';
  * Filters the identity according to filter parameters
  *
  * @param src {Object} identity map to filter
- * @param queries {Array} list of queries
+ * @param conditions {Array} list of query conditions
  * @return {Object} filtered identity map
  */
-export function filter(src, queries) {
-  let $queries = queries;
+export function filter(src, conditions) {
+  let $conditions = conditions;
   // Clean query
-  if (isNil($queries)) {
-    $queries = [/.*/];
+  if (isNil($conditions)) {
+    $conditions = [/.*/];
   }
-  $queries = map($queries, (value) => {
+  $conditions = map($conditions, (value) => {
     if (isString(value) || isRegExp(value)) {
       return {
         regex: value,
@@ -31,7 +31,7 @@ export function filter(src, queries) {
 
   const dest = {};
   forEach(Object.keys(src), (key) => {
-    forEach($queries, ({ regex }) => {
+    forEach($conditions, ({ regex }) => {
       if (isString(regex) ? key === regex : key.match(regex)) {
         dest[key] = src[key];
       }
